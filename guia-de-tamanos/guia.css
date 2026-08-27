@@ -1,0 +1,50 @@
+/* Guía de tamaños — compactación de scroll (feedback Bernardo 2026-08-26).
+   Solo overrides propios de esta página; NO toca los CSS con hash de /_next/.
+   Objetivo: subir "¿cuánto le cabe?" al primer pliegue y quitar deslizamiento
+   sin borrar información. */
+
+/* 1. Hero más corto: el título deja de empujar los vasos hacia abajo. */
+.page-hero.compact{padding-top:34px;padding-bottom:24px}
+.page-hero.compact h1{font-size:clamp(38px,4.6vw,60px);margin:10px 0;line-height:.9}
+.page-hero.compact > p:last-of-type{font-size:16px;margin-top:8px}
+
+/* 2. Sección de vasos: elimina el aire muerto (fila fija de 440px) y sube la
+   comparación —lo que la gente quiere ver— casi al primer pliegue.
+   Escala uniforme de los vasos con --s (desktop ~0.9, siguen siendo el héroe). */
+.cup-guide.section{padding-top:30px;padding-bottom:34px}
+.cup-guide .section-title{margin-bottom:16px;align-items:center}
+.cup-guide .cup-row{--s:.9;height:auto;align-items:end;gap:24px;padding:2px 0 0;overflow:visible;flex-wrap:nowrap}
+.cup-guide .cup-row article{flex:0 0 auto}
+.cup-guide .cup-row article > div{height:calc(var(--cup) * var(--s, 1));width:calc(var(--cup) * var(--s, 1) * .64)}
+
+/* 3. Nota "familias": mismo texto, banda mucho más compacta. */
+.guide-note{padding:30px 8vw;gap:20px;align-items:center}
+.guide-note > span{font-size:40px}
+.guide-note h2{font-size:clamp(28px,3vw,40px);line-height:1;margin:0}
+.guide-note p{font-size:16px;line-height:1.45;margin:10px 0 6px;max-width:680px}
+.guide-note a{font-weight:900}
+
+/* --- Móvil / tablet: los 4 vasos completos, sin scroll horizontal ni recorte --- */
+@media (max-width:900px){
+  .page-hero.compact{padding-top:20px;padding-bottom:14px}
+  .page-hero.compact h1{font-size:clamp(28px,7vw,42px)}
+  .page-hero.compact > p:last-of-type{font-size:15px;margin-top:6px}
+  .cup-guide.section{padding-top:18px;padding-bottom:20px}
+  .cup-guide .section-title{margin-bottom:8px}
+  .cup-guide .section-title h2{font-size:30px}
+  .cup-guide .section-title > p{font-size:13px;margin-top:8px}
+  .cup-guide .cup-row{--s:.6;justify-content:center;gap:10px;overflow:visible;flex-wrap:nowrap}
+  .cup-guide .cup-row article{flex:0 0 auto}
+  .cup-guide .cup-row b{font-size:15px}
+  .cup-guide .cup-row span{font-size:9px}
+  .cup-guide .cup-row h3{font-size:11px}
+  .guide-note{padding:20px 18px;gap:14px;align-items:flex-start}
+  .guide-note > span{font-size:30px}
+  .guide-note h2{font-size:24px}
+  .guide-note p{font-size:14px;margin:8px 0 6px}
+}
+@media (max-width:430px){
+  .cup-guide .cup-row{--s:.52;gap:8px}
+  .cup-guide .cup-row b{font-size:13px}
+  .cup-guide .cup-row span{font-size:8px}
+}

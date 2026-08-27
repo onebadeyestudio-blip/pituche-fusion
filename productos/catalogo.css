@@ -1,0 +1,203 @@
+/* ============================================================
+   Navegador de categorias estilo Adidas para Pituche.
+   Namespace .catb-* : 100% autosuficiente (no depende del CSS de
+   Next), asi funciona igual servido y abriendo el .html con file://.
+   Paleta calcada del sitio (:root de _next) con fallback propio.
+   ============================================================ */
+.catb {
+  --catb-red: #ed1233;
+  --catb-ink: #332f2c;
+  --catb-paper: #f7f2e9;
+  --catb-cream: #eee6d9;
+  --catb-green: #dff2d8;
+  --catb-line: #d8d0c5;
+  --catb-white: #fff;
+  --catb-dark: #3b3734;
+  --catb-muted: #6f6862;
+
+  max-width: 1180px;
+  margin: 8px auto 0;
+  padding: 28px 24px 8px;
+  color: var(--catb-ink);
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.catb *, .catb *::before, .catb *::after { box-sizing: border-box; }
+
+.catb-head { margin: 0 0 18px; }
+.catb-eyebrow {
+  margin: 0 0 6px; font-size: 12px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--catb-red); font-weight: 700;
+}
+.catb-head h2 {
+  margin: 0 0 6px; font-size: clamp(22px, 3.2vw, 30px);
+  line-height: 1.08; font-weight: 800;
+}
+.catb-sub { margin: 0; color: var(--catb-muted); font-size: 15px; max-width: 52ch; }
+
+/* ---------- shell 2 columnas ---------- */
+.catb-shell {
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+/* ---------- rail (menu lateral persistente) ---------- */
+.catb-rail {
+  position: sticky; top: 88px;
+  background: var(--catb-white);
+  border: 1px solid var(--catb-line);
+  border-radius: 16px;
+  padding: 10px;
+  max-height: calc(100vh - 108px);
+  overflow: auto;
+}
+.catb-rail-title {
+  margin: 4px 8px 10px; font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--catb-muted); font-weight: 700;
+}
+.catb-cat { border-radius: 12px; }
+.catb-cat + .catb-cat { margin-top: 2px; }
+.catb-cat-head {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  background: transparent; border: 0; cursor: pointer;
+  padding: 11px 12px; border-radius: 12px;
+  font-size: 15px; font-weight: 600; color: var(--catb-ink);
+  text-align: left; line-height: 1.15;
+  transition: background .14s ease, color .14s ease;
+}
+.catb-cat-head:hover { background: var(--catb-cream); }
+.catb-cat-emoji { font-size: 18px; flex: 0 0 auto; }
+.catb-cat-label { flex: 1 1 auto; }
+.catb-count {
+  flex: 0 0 auto; font-size: 12px; font-weight: 700; color: var(--catb-muted);
+  background: var(--catb-cream); border-radius: 999px; padding: 2px 8px; min-width: 22px; text-align: center;
+}
+.catb-caret {
+  flex: 0 0 auto; color: var(--catb-muted); font-size: 12px;
+  transition: transform .18s ease; transform: rotate(0deg);
+}
+.catb-cat.is-open > .catb-cat-head .catb-caret { transform: rotate(90deg); }
+.catb-cat.is-active > .catb-cat-head {
+  background: var(--catb-ink); color: var(--catb-white);
+}
+.catb-cat.is-active > .catb-cat-head .catb-count { background: rgba(255,255,255,.18); color: #fff; }
+.catb-cat.is-active > .catb-cat-head .catb-caret { color: rgba(255,255,255,.85); }
+
+/* item "Todos" */
+.catb-all {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  background: transparent; border: 0; cursor: pointer;
+  padding: 11px 12px; border-radius: 12px; margin-bottom: 4px;
+  font-size: 15px; font-weight: 700; color: var(--catb-ink); text-align: left;
+}
+.catb-all:hover { background: var(--catb-cream); }
+.catb-all.is-active { background: var(--catb-ink); color: var(--catb-white); }
+.catb-all.is-active .catb-count { background: rgba(255,255,255,.18); color: #fff; }
+
+/* subcategorias (acordeon) */
+.catb-subs { padding: 2px 6px 8px 40px; display: grid; gap: 2px; }
+.catb-subs[hidden] { display: none; }
+.catb-sub {
+  width: 100%; text-align: left; background: transparent; border: 0; cursor: pointer;
+  padding: 7px 10px; border-radius: 9px; font-size: 13.5px; color: var(--catb-muted);
+  display: flex; align-items: center; gap: 8px; line-height: 1.2;
+  transition: background .14s ease, color .14s ease;
+}
+.catb-sub:hover { background: var(--catb-cream); color: var(--catb-ink); }
+.catb-sub .catb-subcount { margin-left: auto; font-size: 11px; opacity: .8; }
+.catb-sub.is-active { background: var(--catb-green); color: var(--catb-ink); font-weight: 700; }
+
+.catb-help {
+  display: block; margin: 10px 6px 4px; padding: 12px 14px;
+  background: var(--catb-green); border-radius: 12px;
+  color: var(--catb-ink); text-decoration: none; font-size: 13.5px; line-height: 1.35;
+}
+.catb-help b { color: var(--catb-red); }
+
+/* ---------- panel de resultados ---------- */
+.catb-panel { min-width: 0; }
+.catb-panel-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; margin: 2px 2px 14px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--catb-line); flex-wrap: wrap;
+}
+.catb-panel-head b { font-size: 18px; font-weight: 800; }
+.catb-panel-head span { font-size: 13px; color: var(--catb-muted); }
+
+.catb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+.catb-card {
+  background: var(--catb-white); border: 1px solid var(--catb-line);
+  border-radius: 14px; padding: 12px; display: flex; flex-direction: column;
+  transition: box-shadow .16s ease, transform .16s ease, border-color .16s ease;
+}
+.catb-card:hover {
+  box-shadow: 0 10px 26px -18px rgba(51,47,44,.55);
+  border-color: #c9bfb0; transform: translateY(-2px);
+}
+.catb-photo {
+  position: relative; display: block; border-radius: 10px; overflow: hidden;
+  background: var(--catb-cream); aspect-ratio: 1 / 1;
+}
+.catb-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.catb-badge {
+  position: absolute; left: 8px; top: 8px;
+  background: rgba(51,47,44,.86); color: #fff; font-size: 11px; font-weight: 700;
+  letter-spacing: .02em; padding: 4px 9px; border-radius: 999px;
+}
+.catb-uso { margin: 11px 2px 4px; font-size: 12.5px; color: var(--catb-muted); line-height: 1.3; }
+.catb-name { margin: 0 2px 6px; font-size: 15px; line-height: 1.22; font-weight: 700; }
+.catb-name a { color: var(--catb-ink); text-decoration: none; }
+.catb-name a:hover { text-decoration: underline; }
+.catb-pres { display: block; margin: 0 2px 12px; font-size: 12px; color: var(--catb-muted); }
+.catb-actions { margin-top: auto; display: flex; gap: 8px; align-items: center; }
+.catb-ver {
+  flex: 1 1 auto; text-align: center; text-decoration: none;
+  border: 1px solid var(--catb-ink); color: var(--catb-ink);
+  border-radius: 999px; padding: 8px 10px; font-size: 13px; font-weight: 700;
+  transition: background .14s ease, color .14s ease;
+}
+.catb-ver:hover { background: var(--catb-ink); color: #fff; }
+.catb-add {
+  flex: 0 0 auto; text-decoration: none; background: var(--catb-red); color: #fff;
+  border-radius: 999px; padding: 8px 12px; font-size: 13px; font-weight: 700;
+}
+.catb-add:hover { filter: brightness(.94); }
+
+/* ---------- chips (solo movil) ---------- */
+.catb-chips, .catb-subchips { display: none; }
+.catb-chip, .catb-subchip {
+  flex: 0 0 auto; background: var(--catb-white); border: 1px solid var(--catb-line);
+  border-radius: 999px; padding: 9px 14px; font-size: 13.5px; font-weight: 600;
+  color: var(--catb-ink); cursor: pointer; white-space: nowrap; display: inline-flex;
+  align-items: center; gap: 6px; scroll-snap-align: start;
+}
+.catb-chip.is-active { background: var(--catb-ink); color: #fff; border-color: var(--catb-ink); }
+.catb-subchip { font-size: 12.5px; padding: 7px 12px; color: var(--catb-muted); }
+.catb-subchip.is-active { background: var(--catb-green); border-color: #bfe0b3; color: var(--catb-ink); font-weight: 700; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 760px) {
+  .catb { padding: 22px 16px 4px; }
+  .catb-shell { grid-template-columns: 1fr; gap: 16px; }
+  .catb-rail { display: none; }
+  .catb-chips {
+    display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px;
+    scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  }
+  .catb-subchips {
+    display: flex; gap: 8px; overflow-x: auto; padding: 0 2px 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .catb-subchips[hidden] { display: none; }
+  .catb-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .catb-chips::-webkit-scrollbar, .catb-subchips::-webkit-scrollbar { height: 0; }
+}
+@media (max-width: 420px) {
+  .catb-grid { grid-template-columns: 1fr 1fr; }
+}

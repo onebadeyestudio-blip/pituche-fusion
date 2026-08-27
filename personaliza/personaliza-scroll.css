@@ -1,0 +1,86 @@
+/* Personaliza — compactación de scroll (feedback Bernardo 2026-08-26).
+   Overrides propios de esta página; NO toca previewer.css, el estudio, ni /_next/.
+   Objetivo: que el estudio del logo se vea antes y bajar el deslizamiento
+   resumiendo el texto de alrededor (acordeones / bloques más compactos),
+   sin borrar contenido. */
+
+/* --- Hero más corto --- */
+.personalization-hero{min-height:400px}
+.personalization-visual{min-height:400px}
+.personalization-copy{padding:38px 6vw}
+.personalization-copy h1{font-size:clamp(42px,5vw,72px);margin:16px 0}
+.personalization-copy > p:not(.eyebrow){font-size:17px}
+.personalization-copy small{margin-top:14px}
+
+/* --- Impacto: banda más compacta, tarjetas más bajas (mismo texto) --- */
+.personalization-impact.section{padding:46px 5vw}
+.personalization-impact{gap:5vw}
+.personalization-impact h2{font-size:clamp(32px,3.6vw,50px);margin:10px 0}
+.personalization-impact > div:first-child > p:last-child{font-size:15px;line-height:1.5}
+.impact-grid{gap:10px}
+.impact-grid article{min-height:0;padding:14px 16px}
+.impact-grid article > span{font-size:22px}
+.impact-grid h3{margin:6px 0 5px;font-size:16px}
+.impact-grid p{font-size:12px;line-height:1.45}
+
+/* --- Productos: los 4 en UNA fila (desktop) para ver el catálogo de un vistazo --- */
+.personalizable-products.section{padding:48px 5vw}
+.personalizable-products h2{font-size:clamp(32px,3.6vw,50px);margin:10px 0}
+.personalizable-products .section-title{margin-bottom:24px}
+.product-grid{grid-template-columns:repeat(4,1fr);gap:18px}
+.personalizable-products .product-photo{height:178px}
+.product-card h3{margin:6px 0;font-size:16px;line-height:1.2}
+.product-card > p,.product-card > small{font-size:11px}
+.product-card > div{margin-top:10px;padding-top:10px}
+
+/* --- Proceso: encabezado visible + 6 pasos en acordeón (cerrado por defecto) --- */
+.custom-process{padding:44px 7vw;gap:5vw}
+.process-heading h2{font-size:clamp(32px,3.6vw,50px);margin:10px 0}
+.custom-process .process-steps{border-top:0}
+details.steps-fold{border-top:1px solid var(--ink)}
+/* Reset total del <summary> para anular la regla global tipo "caja de producto". */
+details.steps-fold > summary{display:flex;grid-template-columns:none;align-items:center;justify-content:space-between;gap:12px;background:0 0;border:0;margin:0;padding:18px 0;font-size:15px;font-weight:900;cursor:pointer;list-style:none}
+details.steps-fold > summary::-webkit-details-marker{display:none}
+details.steps-fold > summary::marker{content:""}
+details.steps-fold[open] > summary{border-bottom:1px solid var(--line)}
+.fold-plus{font-size:24px;line-height:1;transition:transform .2s ease}
+details.steps-fold[open] .fold-plus{transform:rotate(45deg)}
+
+/* --- Dummy band más compacta --- */
+.dummy-band{padding:32px 8vw;gap:6vw}
+.dummy-band h2{font-size:clamp(32px,3.6vw,50px);margin:10px 0}
+.dummy-band > div:last-child > p:not(.eyebrow){font-size:15px;line-height:1.5}
+.dummy-band ul{margin:16px 0}
+.dummy-band li{padding:11px 0}
+
+/* --- FAQ más compacta (los <details> quedan cerrados por defecto en el HTML) --- */
+.custom-faq.section{padding:40px 5vw}
+.custom-faq h2{font-size:clamp(32px,3.6vw,50px)}
+.custom-faq details{padding:13px 0}
+
+/* --- CTA final más compacto --- */
+.personalization-final{padding:36px 5vw}
+.personalization-final h2{font-size:clamp(32px,3.6vw,50px);margin:12px auto}
+.personalization-final > p:not(.eyebrow){font-size:16px;margin:0 auto 16px}
+
+/* --- Móvil / tablet --- */
+@media (max-width:900px){
+  .personalization-hero,.personalization-visual{min-height:0}
+  .personalization-copy{padding:28px 20px}
+  .personalization-copy h1{font-size:clamp(34px,9vw,48px);margin:12px 0}
+  .personalization-visual{min-height:230px}
+  .personalization-impact.section{padding:32px 18px}
+  .impact-grid{grid-template-columns:1fr 1fr}
+  .personalizable-products.section{padding:32px 18px}
+  .personalizable-products .section-title{margin-bottom:18px}
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .personalizable-products .product-photo{height:150px}
+  .custom-process{padding:30px 18px;gap:24px}
+  .dummy-band{padding:30px 18px;gap:22px}
+  .custom-faq.section{padding:32px 18px}
+  .personalization-final{padding:36px 18px}
+}
+@media (max-width:430px){
+  .product-card h3{font-size:15px}
+  .product-card > p,.product-card > small{font-size:10px}
+}

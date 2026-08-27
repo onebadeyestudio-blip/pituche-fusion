@@ -1,0 +1,117 @@
+/* ==========================================================================
+   PITUCHE · ESTUDIO DE PERSONALIZACIÓN — mini-app (INJERTO ADITIVO)
+   One Bad Eye Studio · agosto 2026
+   Usa los tokens del sitio del cliente (var(--red)/--ink/--paper/--green/--line),
+   su tipografía (Arial) y cursiva Georgia para acentos. Esquinas cuadradas.
+   Solo agrega clases nuevas (prefijo studio-/prod-/ctrl-/stage-). Sin fuentes externas.
+   ========================================================================== */
+
+.studio-section{background:var(--paper);padding:88px 5vw}
+
+/* tarjeta elevada del estudio */
+.studio{max-width:1180px;margin:0 auto;background:#fff;border:1px solid var(--line);
+  box-shadow:0 34px 70px -26px rgba(51,47,44,.34), 0 10px 26px rgba(51,47,44,.07);
+  padding:40px 40px 34px}
+
+.studio-head{max-width:760px;margin-bottom:30px}
+.studio-head .eyebrow{color:var(--ink)}
+.studio-head h2{letter-spacing:-.05em;margin:14px 0 0;font-size:clamp(34px,3.6vw,52px);
+  line-height:.98;color:var(--ink)}
+.studio-head h2 em{color:var(--red);font-style:italic}
+.studio-lead{max-width:600px;margin-top:16px;font-size:16px;line-height:1.6;color:var(--ink)}
+
+/* cuerpo: escenario (canvas) + panel */
+.studio-body{display:grid;grid-template-columns:1.65fr 1fr;gap:34px;align-items:start}
+
+/* ---- escenario / canvas ---- */
+.studio-stage{min-width:0}
+.stage-canvas-wrap{position:relative;background:#eceae6;border:1px solid var(--line);
+  overflow:hidden}
+#studioCanvas{width:100%;height:auto;display:block;touch-action:none;cursor:grab}
+#studioCanvas.dragging{cursor:grabbing}
+/* mensaje elegante sobre el canvas cuando aún no hay logo */
+.stage-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;text-align:center;pointer-events:none;color:var(--ink);
+  background:radial-gradient(120% 90% at 50% 45%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%)}
+.stage-hint svg{width:40px;height:40px;fill:none;stroke:var(--red);stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round;opacity:.9}
+.stage-hint b{font-size:18px;font-weight:900;letter-spacing:-.01em}
+.stage-hint span{font-size:12.5px;font-weight:700;color:#8a8175}
+.stage-canvas-wrap.dragover{outline:2px dashed var(--red);outline-offset:-6px}
+.stage-canvas-wrap.dragover .stage-hint b{color:var(--red)}
+.stage-tip{margin-top:12px;font-size:12px;font-weight:700;color:#8a8175;text-align:center;
+  letter-spacing:.02em}
+
+/* ---- panel de controles ---- */
+.studio-panel{display:flex;flex-direction:column;gap:22px}
+.ctrl{display:flex;flex-direction:column;gap:10px}
+.ctrl-label{font-size:11px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--ink)}
+
+/* tabs de producto con miniatura */
+.prod-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.prod-tab{border:1px solid var(--line);background:#fff;padding:8px 6px 7px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:5px;transition:border-color .2s,box-shadow .2s}
+.prod-tab img{width:100%;height:56px;object-fit:contain;background:#eceae6}
+.prod-tab span{font-size:11.5px;font-weight:800;color:var(--ink)}
+.prod-tab:hover{border-color:var(--red)}
+.prod-tab.is-on{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+
+/* botón subir logo (contorno) */
+.studio-upload{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);font-weight:800;font-size:14px;
+  padding:14px 18px;cursor:pointer;transition:background .2s,color .2s}
+.studio-upload:hover{background:var(--ink);color:#fff}
+.studio-upload svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.logo-name{font-size:12px;color:#6f665c;word-break:break-all;margin:0;min-height:0}
+.logo-name b{color:var(--ink)}
+
+/* sliders con acento rojo del cliente */
+input[type=range].studio-range{-webkit-appearance:none;appearance:none;width:100%;height:4px;
+  background:var(--line);outline:none;margin:6px 0}
+input[type=range].studio-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  width:20px;height:20px;background:var(--red);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.28);
+  cursor:pointer;border-radius:50%}
+input[type=range].studio-range::-moz-range-thumb{width:20px;height:20px;background:var(--red);
+  border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.28);cursor:pointer;border:none;border-radius:50%}
+input[type=range].studio-range:disabled{opacity:.4;cursor:not-allowed}
+
+/* acciones */
+.studio-actions{display:flex;flex-direction:column;gap:10px;margin-top:2px}
+.studio-actions .primary{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  border:0;background:var(--red);color:#fff;font-weight:800;font-size:15px;padding:16px 20px;
+  cursor:pointer;text-decoration:none;transition:background .2s}
+.studio-actions .primary:hover{background:#c60e2a}
+.studio-actions .primary svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.ghost-link{background:none;border:0;color:var(--ink);font-weight:800;font-size:12.5px;
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px;align-self:center}
+
+/* estado bloqueado hasta subir logo */
+[data-needs-logo].is-locked,[data-needs-logo]:disabled{opacity:.42;pointer-events:none}
+
+/* ---- pie del estudio: nota honesta + CTA del cliente ---- */
+.studio-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;
+  border-top:1px solid var(--line);margin-top:30px;padding-top:22px}
+.studio-honest{font-size:12.5px;line-height:1.55;color:#8a8175;margin:0;max-width:540px}
+.studio-cta{display:inline-flex;align-items:center;justify-content:center;border:0;background:var(--ink);
+  color:#fff;font-weight:800;font-size:15px;padding:16px 24px;text-decoration:none;transition:background .2s}
+.studio-cta:hover{background:#000}
+
+/* foco accesible */
+.prod-tab:focus-visible,.studio-upload:focus-visible,.studio-actions .primary:focus-visible,
+.studio-cta:focus-visible,.ghost-link:focus-visible,input[type=range].studio-range:focus-visible{
+  outline:3px solid var(--red);outline-offset:2px}
+
+/* ---- responsive (breakpoints del cliente 900/560/430) ---- */
+@media (max-width:900px){
+  .studio-section{padding:60px 16px}
+  .studio{padding:24px 20px 26px}
+  .studio-body{grid-template-columns:1fr;gap:24px}
+  .studio-head h2{font-size:clamp(30px,8vw,42px)}
+}
+@media (max-width:430px){
+  .prod-tab img{height:46px}
+  .studio-foot{flex-direction:column;align-items:stretch}
+  .studio-cta{width:100%}
+}
