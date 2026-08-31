@@ -1,0 +1,113 @@
+/* Arreglos de proporción del home.
+   Archivo propio: no toca el CSS global compartido con las demás páginas.
+   Se carga al final del <head> para ganarle al <style> del carrusel. */
+
+/* PROBLEMA: el carrusel del hero mostraba la foto del producto muy chica,
+   perdida dentro de un recuadro claro enorme, por un padding de hasta 66px
+   más object-fit:contain sin ocupar el alto. Se veía pobre.
+   SOLUCIÓN: la foto usa todo el espacio disponible. Se mantiene "contain"
+   porque son fotos de producto recortado: recortarlas se vería peor. */
+.hero-image .hero-carrusel .hc-slide {
+  padding: clamp(10px, 1.6vw, 22px);
+}
+
+.hero-image .hero-carrusel .hc-slide img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* La foto base (la que el script esconde) también se comporta bien
+   por si el JS no llega a correr. */
+.home-hero .hero-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Flechas siempre visibles en pantallas táctiles: en el teléfono no hay
+   hover, y si no se ven, el carrusel parece una foto fija. */
+@media (hover: none) {
+  .hero-image .hero-carrusel .hc-arrow {
+    opacity: 1;
+  }
+}
+
+/* MÓVIL: el hero se apila. Una franja ancha se ve mejor que una caja alta
+   con la foto flotando en medio. */
+@media (max-width: 860px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .home-hero > div:first-child {
+    padding: 56px 6vw 36px;
+  }
+  .home-hero .hero-image {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+  /* La etiqueta "consulta la guía" no debe tapar la foto ni salirse. */
+  .home-hero .hero-image > a {
+    max-width: min(285px, 76vw);
+    top: auto;
+    bottom: 14%;
+    right: 5%;
+  }
+  /* Que no choque con los puntos del carrusel. */
+  .hero-image .hero-carrusel .hc-dots {
+    bottom: 8px;
+  }
+}
+
+/* PEDIDO DE BERNARDO 31-ago: "las fotos de producto en la home salen
+   chiquitas y mal puestas — las queremos GRANDES". Verificado en vivo
+   (1440px y 390px): el recuadro de ".product-photo" (sección PRODUCTOS
+   DESTACADOS) ya media 360px/390px de alto, pero las 3 fotos reales del
+   catálogo de WooCommerce (charola-de-papel.jpeg 264x264,
+   cuchara-bio.jpeg 263x263 — fuente: web_v7_fusion/catalogo_final.json)
+   traen mucho aire vacío alrededor del producto: con object-fit:cover
+   se ve un producto pequeño flotando en un cuadro gris, MUY por debajo
+   de la calidad de las fotos ya recortadas de ".category-grid" arriba
+   en la misma página. No hay foto de mayor resolución que rescatar
+   (es el original que subió el cliente a WordPress) — la solución de
+   raíz es re-fotografiar/curar esos 3 productos; mientras tanto, esto
+   agranda el recuadro y recorta más cerca (menos aire, más "aire" de
+   layout) para que el producto se vea protagonista, no huérfano. */
+.product-grid {
+  gap: 36px;
+}
+
+.product-photo {
+  height: 480px;
+}
+
+.product-photo img {
+  transform: scale(1.22);
+  transform-origin: center;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-photo img {
+  transform: scale(1.3);
+}
+
+.product-card h3 {
+  font-size: 25px;
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    gap: 22px;
+  }
+  .product-photo {
+    height: 440px;
+  }
+  .product-photo img {
+    transform: scale(1.18);
+  }
+}
