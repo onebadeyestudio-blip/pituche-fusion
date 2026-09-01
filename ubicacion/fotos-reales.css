@@ -1,0 +1,25 @@
+/* Galería de fotos reales de Abastos (fotos-reales.js). ADITIVO, solo se
+   enlaza desde ubicacion/index.html. Usa var(--red)/var(--ink) ya definidas
+   por 0gr5ikuqnkkj6.css. */
+.real-photos { padding: 44px 7vw 56px; text-align: center; }
+.real-photos .eyebrow {
+  letter-spacing: 0.13em; text-transform: uppercase; font-size: 11px;
+  font-weight: 900; color: var(--red, #ed1233); margin: 0 0 8px;
+}
+.real-photos h2 { font-size: clamp(28px, 3.6vw, 44px); margin: 0 0 10px; }
+.real-photos-lead { max-width: 560px; margin: 0 auto 28px; font-size: 15px; line-height: 1.5; }
+.real-photos-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  max-width: 980px; margin: 0 auto;
+}
+.real-photos-grid figure { margin: 0; border-radius: 14px; overflow: hidden; background: #f4efe9; }
+.real-photos-grid img { width: 100%; height: 260px; object-fit: cover; display: block; }
+.real-photos-grid figcaption { padding: 12px 14px; font-size: 13px; font-weight: 700; text-align: left; }
+.real-photos-source { display: block; margin-top: 18px; font-size: 11px; color: #8a8078; }
+.real-photos-source a { color: inherit; }
+
+@media (max-width: 900px) {
+  .real-photos { padding: 30px 20px 40px; }
+  .real-photos-grid { grid-template-columns: 1fr; gap: 14px; }
+  .real-photos-grid img { height: 220px; }
+}

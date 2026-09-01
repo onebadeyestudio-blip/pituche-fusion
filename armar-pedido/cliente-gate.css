@@ -1,0 +1,107 @@
+/* Filtro de cliente — overlay mayoreo / por caja. ADITIVO, solo se enlaza
+   desde armar-pedido/index.html. Usa var(--red) y var(--ink) ya definidas
+   por 0uumics5efxqx.css — cero color nuevo. */
+
+.cg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(20, 16, 14, 0.62);
+  backdrop-filter: blur(2px);
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+.cg-overlay.cg-closing { opacity: 0; }
+
+.cg-card {
+  background: #fff;
+  border-radius: 18px;
+  max-width: 480px;
+  width: 100%;
+  padding: 34px 30px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  animation: cg-pop 0.22s ease;
+}
+@keyframes cg-pop {
+  from { transform: translateY(10px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.cg-eyebrow {
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--red, #ed1233);
+  margin: 0 0 8px;
+}
+.cg-gate h2, .cg-redirect h2 {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 4vw, 30px);
+  line-height: 1.15;
+}
+.cg-lead {
+  margin: 0 0 22px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink, #2a2521);
+}
+
+.cg-options { display: grid; gap: 12px; }
+.cg-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+  border: 2px solid #ece6e0;
+  border-radius: 14px;
+  padding: 16px 18px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.cg-opt:hover, .cg-opt:focus-visible { border-color: var(--red, #ed1233); background: #fff7f5; }
+.cg-opt-icon { font-size: 22px; }
+.cg-opt b { font-size: 16px; }
+.cg-opt span:last-child { font-size: 12px; color: #6b625b; }
+
+.cg-redirect-links { display: grid; gap: 10px; margin: 4px 0 18px; }
+.cg-redirect-link {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  border: 2px solid #ece6e0;
+  color: var(--ink, #2a2521);
+}
+.cg-redirect-primary { background: var(--red, #ed1233); border-color: var(--red, #ed1233); color: #fff; }
+.cg-redirect-link:not(.cg-redirect-primary):hover { border-color: var(--red, #ed1233); }
+
+.cg-redirect-alt {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: none;
+  border: 0;
+  padding: 6px 0 0;
+  font-size: 12px;
+  color: #6b625b;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .cg-card { padding: 26px 20px; border-radius: 14px; }
+}
+
+/* --- Estado del envio real del cotizador (lead-submit.js) --- */
+small.demo-message.cot-lead-error { color: var(--red, #ed1233); font-weight: 700; }
+small.demo-message.cot-lead-ok { color: #1a7d3c; font-weight: 700; }
