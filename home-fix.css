@@ -111,3 +111,64 @@
     transform: scale(1.18);
   }
 }
+
+/* PEDIDO Bernardo 1-sep: la caja "Plasma tu marca" (personalización) era un
+   rectángulo plano ("TU LOGO" + "Vista ilustrativa"), sin foto — se leía
+   como dibujo/mockup vacío, justo lo que el cliente rechaza (odia las
+   imágenes de IA genéricas). `home-personaliza-boost.js` inyecta una foto
+   REAL de producto (la misma del estudio de /personaliza, cero IA) dentro
+   de `.brand-cup`; este bloque solo la acomoda visualmente. Aditivo, no
+   toca el layout base de `.brand-cup`/`.brand-band` que ya existía. */
+.brand-cup {
+  overflow: hidden;
+}
+
+.brand-cup--photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.brand-cup--photo .brand-cup-badge {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  margin: auto;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--red, #ed1233);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(51, 47, 44, 0.28);
+}
+
+.brand-cup--photo small {
+  z-index: 1;
+  left: 50%;
+  right: auto;
+  bottom: 14px;
+  transform: translateX(-50%);
+  background: rgba(51, 47, 44, 0.85);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* PEDIDO Bernardo 1-sep: "quiero muchísimo más énfasis a personalizar" —
+   home-personaliza-boost.js mueve `.brand-band` (Plasma tu marca) para que
+   sea la SEGUNDA sección del home (justo después de la franja de
+   beneficios), en vez de casi al fondo de la página. Este bloque solo le
+   da un poco más de aire para que se sienta como sección propia, no como
+   un relleno entre otras dos. */
+.brand-band.brand-band--promoted {
+  padding-top: clamp(28px, 4vw, 48px);
+  padding-bottom: clamp(28px, 4vw, 48px);
+}
